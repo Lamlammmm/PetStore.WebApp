@@ -29,5 +29,11 @@ namespace PetStore.WebAdmin.Controllers
             }
             return View(data.Data);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return ViewComponent("CreateAbout");
+        }
     }
 }

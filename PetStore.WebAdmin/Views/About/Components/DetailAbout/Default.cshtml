@@ -1,0 +1,24 @@
+﻿@model AboutModel
+
+<div>
+    <h4>Chi tiết</h4>
+    <hr />
+    <form asp-controller="About" asp-action="Detail" enctype="multipart/form-data" method="post">
+        <div class="form-body">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" readonly="@(true)" />
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label"></label>
+                    <input asp-for="Content" class="form-control" readonly="@(true)" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

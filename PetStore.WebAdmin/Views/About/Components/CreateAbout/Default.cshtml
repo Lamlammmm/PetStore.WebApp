@@ -1,0 +1,28 @@
+﻿@model AboutModel
+
+<div>
+    <h4>Thêm mới</h4>
+    <hr />
+    <form asp-controller="About" asp-action="Create" enctype="multipart/form-data" method="post">
+        <div class="form-body">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label"></label>
+                    <input asp-for="Content" class="form-control" />
+                </div>
+            </div>
+
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn btn-success btn-sm">
+                    Lưu
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
