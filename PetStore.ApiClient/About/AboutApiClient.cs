@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using PetStore.Common.XBaseModel;
 using PetStore.Model;
-using System.Net.Http;
 
 namespace PetStore.ApiClient
 {
@@ -13,6 +12,18 @@ namespace PetStore.ApiClient
             IHttpContextAccessor httpContextAccessor)
             : base(httpClientFactory, configuration, httpContextAccessor)
         {
+        }
+
+        public async Task<ApiResult<int>> DeletesAsync(Guid ids)
+        {
+            var data = await Delete($"/api/About/Delete-About?id={ids}");
+            return data;
+        }
+
+        public async Task<ApiResult<AboutModel>> GetById(Guid id)
+        {
+            var data = await GetAsync<AboutModel>($"/api/About/get-by-id?id={id}");
+            return data;
         }
 
         public async Task<ApiResult<Pagination<AboutModel>>> GetPaging(AboutSearchModel request)

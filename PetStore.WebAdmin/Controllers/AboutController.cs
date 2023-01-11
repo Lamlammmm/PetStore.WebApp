@@ -58,5 +58,81 @@ namespace PetStore.WebAdmin.Controllers
             }
             return View(request);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var result = await _aboutApiClient.GetById(id);
+            if (result.Data != null)
+            {
+                var model = result.Data;
+                var updateRequest = new AboutModel()
+                {
+                    Id = id,
+                    Content = model.Content,
+                    Title = model.Title,
+                    Image = model.Image,
+                    FilesModels = await _fileAboutApiClient.GetFilesAdmin(id)
+                };
+                return ViewComponent("EditAbout", updateRequest);
+            }
+            return RedirectToAction("Index", "About");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AboutModel request)
+        {
+            var result = await _fileAboutApiClient.EditAbout(request);
+            if (result.Data > 0)
+            {
+                var filemodels = new FilesModel();
+                filemodels.AboutId = (Guid)request.Id;
+                filemodels.filesadd = request.filesadd;
+                //delete files
+                await _fileAboutApiClient.DeleteFiles((Guid)request.Id);
+                //update files
+                await _fileAboutApiClient.UpdateImage(filemodels, (Guid)request.Id);
+
+                TempData["result"] = result.Message;
+                return RedirectToAction("Index");
+            }
+            return View(request);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _aboutApiClient.DeletesAsync(id);
+
+            await _fileAboutApiClient.DeleteFiles(id);
+            await _fileAboutApiClient.DeleteDataFiles(id);
+
+            if (result.Data > 0)
+            {
+                TempData["result"] = result.Message;
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(Guid id)
+        {
+            var result = await _aboutApiClient.GetById(id);
+            if (result.Data != null)
+            {
+                var model = result.Data;
+                var detailRequest = new AboutModel()
+                {
+                    Id = id,
+                    Content = model.Content,
+                    Title = model.Title,
+                    Image = model.Image,
+                    FilesModels = await _fileAboutApiClient.GetFilesAdmin(id)
+                };
+                return ViewComponent("DetailAbout", detailRequest);
+            }
+            return RedirectToAction("Index", "About");
+        }
     }
 }

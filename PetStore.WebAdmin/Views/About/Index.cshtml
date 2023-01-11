@@ -65,11 +65,11 @@
                                     {
                                         if (item.Image.Contains("https"))
                                         {
-                                            <img src="@(Configuration["FileAddress"]+"/api/FilesAbout/image/"+ @item.Image)" asp-append-version="true" width="80" height="80" />
+                                            <img src="@(Configuration["BaseAddress"]+"/api/FilesAbout/image/"+ @item.Image)" asp-append-version="true" width="80" height="80" />
                                         }
                                         else
                                         {
-                                            <img src="@(Configuration["FileAddress"]+"/api/FilesAbout/image/"+ @item.Image)" asp-append-version="true" width="80" height="80" />
+                                            <img src="@(Configuration["BaseAddress"]+"/api/FilesAbout/image/"+ @item.Image)" asp-append-version="true" width="80" height="80" />
 
                                         }
                                     }
@@ -121,7 +121,7 @@
                 $.post("/About/Delete", { id: id }, function (data) {
                     if (data) {
                         if (confirm("Xóa thành công"))
-                            window.location.assign('/About/Index')
+                            window.location.assign('/About')
                     } else {
                         alert("Quá trình thực hiện không thành công. Hãy thử lại");
                     }

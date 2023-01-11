@@ -1,4 +1,5 @@
 ﻿@model AboutModel
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
 
 <div>
     <h4>Chi tiết</h4>
@@ -6,7 +7,10 @@
     <form asp-controller="About" asp-action="Detail" enctype="multipart/form-data" method="post">
         <div class="form-body">
             <input type="hidden" asp-for="Id" />
-
+            @foreach (var item in Model.FilesModels)
+            {
+                <a><img src="@(Configuration["BaseAddress"]+item.Path+ "/"+@item.FileName+"")" alt="@item.FileName" /></a>
+            }
             <div class="modal-body">
                 <div class="form-group">
                     <label asp-for="Title" class="control-label"></label>

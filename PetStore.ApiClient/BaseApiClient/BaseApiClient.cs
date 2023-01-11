@@ -243,5 +243,28 @@ namespace PetStore.ApiClient
             }
             throw new Exception(body);
         }
+
+        public async Task<ApiResult<int>> Delete(string url, bool requiredLogin = true)
+        {
+            var sessions = _httpContextAccessor
+                .HttpContext
+                .Session
+                .GetString(SystemConstants.AppSettings.Token);
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
+            StringContent httpContent = null;
+
+            if (requiredLogin)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+            }
+            var response = await client.PostAsync(url, httpContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<ApiSuccessResult<int>>(body);
+            }
+            throw new Exception(body);
+        }
     }
 }
