@@ -53,7 +53,7 @@ namespace PetStore.WebAdmin.Controllers
                 filemodels.filesadd = request.filesadd;
                 await _fileAboutApiClient.CreateImage(filemodels, (Guid)request.Id);
 
-                TempData["result"] = result.Message;
+                TempData["success"] = result.Message;
                 return RedirectToAction("Index");
             }
             return View(request);
@@ -93,7 +93,7 @@ namespace PetStore.WebAdmin.Controllers
                 //update files
                 await _fileAboutApiClient.UpdateImage(filemodels, (Guid)request.Id);
 
-                TempData["result"] = result.Message;
+                TempData["info"] = result.Message;
                 return RedirectToAction("Index");
             }
             return View(request);
