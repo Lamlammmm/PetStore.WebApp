@@ -1,0 +1,142 @@
+﻿@model Pagination<MenuItemModel>
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    ViewData["Title"] = "Danh mục chức năng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Danh mục chức năng</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Danh mục chức năng</li>
+    </ol>
+    <div class="card mb-12">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <a class="btn btn-success" onclick="Create()"><i class="fas fa-check"></i> Tạo mới</a>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <form asp-action="Index" method="get">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input type="text" value="@ViewBag.Keyword" name="keyword" class="form-control" />
+                            </div>
+                            <div class="cold-md-3">
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                                <button type="button" onclick="window.location.href='/MenuItem'" class="btn btn-dark">Tải lại</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <input type="hidden" id="success" value="@TempData["success"]" />
+            <input type="hidden" id="info" value="@TempData["info"]" />
+            <input type="hidden" id="info" value="@TempData["warning"]" />
+            <input type="hidden" id="error" value="@TempData["error"]" />
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Chức năng
+                            </th>
+                            <th>
+                                Sắp xếp
+                            </th>
+                            <th>
+                                Icon
+                            </th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.menuName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ghortOrder)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.icon)
+                                </td>
+                                <td>
+                                    <button onclick="Edit('@item.Id')" class="btn btn-primary"><i class="fas fa-exclamation-triangle"></i> Sửa</button>
+                                    <button onclick="Detail('@item.Id')" class="btn" style="background: yellow;"><i class="fas fa-info-circle"></i> Chi tiết</button>
+                                    <button onclick="Delete('@item.Id')" class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @await Component.InvokeAsync("Pager", Model)
+        </div>
+    </div>
+</div>
+
+<div id="contactDetails"></div>
+
+@section Scripts{
+    <script>
+
+        function Create() {
+            $.get("/MenuItem/Create", function (data) {
+                $("#contactDetails").html(data);
+                $("#contactDetails").dialog("open");
+                $(".k-overlay").removeClass("d-none");
+            });
+        }
+
+        function Edit(id) {
+            $.get("/MenuItem/Edit", { id: id }, function (data) {
+                $("#contactDetails").html(data);
+                $("#contactDetails").dialog("open");
+            });
+        }
+
+        function Detail(id) {
+            $.get("/MenuItem/Detail", { id: id }, function (data) {
+                $("#contactDetails").html(data);
+                $("#contactDetails").dialog("open");
+            });
+        }
+
+        function Delete(id) {
+            if (confirm("Bạn có chắc chắn xóa không?")) {
+                $.post("/MenuItem/Delete", { id: id }, function (data) {
+                    if (data) {
+                        if (confirm("Xóa thành công"))
+                            window.location.assign('/MenuItem')
+                    } else {
+                        alert("Quá trình thực hiện không thành công. Hãy thử lại");
+                    }
+                });
+            }
+        }
+
+        $(function () {
+            $("#contactDetails").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 500,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+        });
+
+    </script>
+}

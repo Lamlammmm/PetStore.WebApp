@@ -1,0 +1,30 @@
+﻿@model MenuItemModel
+
+<div>
+    <h4>Chi tiết</h4>
+    <hr />
+    <form asp-controller="About" asp-action="Detail" method="post">
+        <div class="form-body">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="menuName" class="control-label"></label>
+                    <input asp-for="menuName" class="form-control" readonly="@(true)" />
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="ghortOrder" class="control-label"></label>
+                    <input asp-for="ghortOrder" class="form-control" readonly="@(true)" />
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="icon" class="control-label"></label>
+                    <input asp-for="icon" class="form-control" readonly="@(true)" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -30,6 +30,7 @@ if (environment == Environments.Development)
 builder.Services.AddScoped<ILoginApiClient, LoginApiClient>();
 builder.Services.AddScoped<IAboutApiClient, AboutApiClient>();
 builder.Services.AddScoped<IFileAboutApiClient, FileAboutApiClient>();
+builder.Services.AddScoped<IMenuItemApiClient, MenuItemApiClient>();
 
 var app = builder.Build();
 
