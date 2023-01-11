@@ -28,6 +28,7 @@ if (environment == Environments.Development)
 }
 
 builder.Services.AddScoped<ILoginApiClient, LoginApiClient>();
+builder.Services.AddScoped<IAboutApiClient, AboutApiClient>();
 
 var app = builder.Build();
 

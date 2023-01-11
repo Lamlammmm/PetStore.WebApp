@@ -61,6 +61,28 @@ namespace PetStore.ApiClient
             throw new Exception(body);
         }
 
+        public async Task<T> GetPagingAsync<T>(string url, bool requiredLogin = true)
+        {
+            var sessions = _httpContextAccessor
+                .HttpContext
+                .Session
+                .GetString(SystemConstants.AppSettings.Token);
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
+
+            if (requiredLogin)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+            }
+            var response = await client.GetAsync(url);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<T>(body);
+            }
+            throw new Exception(body);
+        }
+
         public async Task<ApiResult<T>> GetAsync<T>(string url, bool requiredLogin = true)
         {
             var sessions = _httpContextAccessor
