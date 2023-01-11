@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using PetStore.Common.XBaseModel;
 using PetStore.Model;
+using System.Net.Http;
 
 namespace PetStore.ApiClient
 {

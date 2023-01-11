@@ -1,4 +1,5 @@
-﻿using PetStore.Common.ShareModel;
+﻿using Microsoft.AspNetCore.Http;
+using PetStore.Common.ShareModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
@@ -14,5 +15,14 @@ namespace PetStore.Model
 
         [Display(Name = "Hình ảnh")]
         public string Image { get; set; }
+
+        public IFormFile? filesadd { get; set; }
+
+        public List<FilesModel>? FilesModels { get; set; }
+
+        public AboutModel()
+        {
+            FilesModels = new List<FilesModel>();
+        }
     }
 }

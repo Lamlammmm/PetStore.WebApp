@@ -1,5 +1,5 @@
 ﻿@model Pagination<AboutModel>
-
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
 @{
     ViewData["Title"] = "Danh mục giới thiệu";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -61,7 +61,18 @@
                                     @Html.DisplayFor(modelItem => item.Content)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Image)
+                                    @if (item.Image != null)
+                                    {
+                                        if (item.Image.Contains("https"))
+                                        {
+                                            <img src="@(Configuration["FileAddress"]+"/api/FilesAbout/image/"+ @item.Image)" asp-append-version="true" width="80" height="80" />
+                                        }
+                                        else
+                                        {
+                                            <img src="@(Configuration["FileAddress"]+"/api/FilesAbout/image/"+ @item.Image)" asp-append-version="true" width="80" height="80" />
+
+                                        }
+                                    }
                                 </td>
                                 <td>
                                     <button onclick="Edit('@item.Id')" class="btn btn-primary"><i class="fas fa-exclamation-triangle"></i> Sửa</button>
