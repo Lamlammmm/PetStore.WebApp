@@ -14,6 +14,12 @@ namespace PetStore.ApiClient
         {
         }
 
+        public async Task<ApiResult<MenuItemModel>> Create()
+        {
+            var data = await GetAsync<MenuItemModel>($"/api/MenuItem/create");
+            return data;
+        }
+
         public async Task<ApiResult<int>> Create(MenuItemModel request)
         {
             var data = await PostAsync($"/api/MenuItem/Create-MenuItem", request);
@@ -52,7 +58,7 @@ namespace PetStore.ApiClient
 
         public async Task<ApiResult<IList<MenuItemModel>>> GetMenuItemSystem()
         {
-            var data = await GetListAsync<MenuItemModel>($"/api/MenuItem/Get-All");
+            var data = await GetListAsync<MenuItemModel>($"/api/MenuItem/Get-menu-system");
             return data;
         }
     }

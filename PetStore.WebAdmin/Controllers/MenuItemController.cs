@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PetStore.ApiClient;
 using PetStore.Model;
 
@@ -22,6 +23,17 @@ namespace PetStore.WebAdmin.Controllers
                 PageSize = pageSize
             };
             var data = await _menuItemApiClient.GetPaging(request);
+            foreach (var item in data.Data.Items)
+            {
+                if (item.typeMenu == "10")
+                {
+                    item.typeMenuName = "Hệ thống";
+                }
+                if (item.typeMenu == "20")
+                {
+                    item.typeMenuName = "Danh mục";
+                }
+            }
 
             ViewBag.Keyword = keyword;
             if (TempData["result"] != null)
@@ -65,7 +77,10 @@ namespace PetStore.WebAdmin.Controllers
                     ghortOrder = model.ghortOrder,
                     icon = model.icon,
                     menuName = model.menuName,
-                    panID = model.panID
+                    panID = model.panID,
+                    typeMenu = model.typeMenu,
+                    typeMenuName= model.typeMenuName,
+                    AvailabletypeMenu = model.AvailabletypeMenu
                 };
                 return ViewComponent("EditMenuItem", updateRequest);
             }
@@ -113,7 +128,10 @@ namespace PetStore.WebAdmin.Controllers
                     ghortOrder = model.ghortOrder,
                     icon = model.icon,
                     menuName = model.menuName,
-                    panID = model.panID
+                    panID = model.panID,
+                    typeMenu = model.typeMenu,
+                    AvailabletypeMenu = model.AvailabletypeMenu,
+                    typeMenuName = model.typeMenuName,
                 };
                 return ViewComponent("DetailMenuItem", detailRequest);
             }
