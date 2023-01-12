@@ -31,6 +31,7 @@ builder.Services.AddScoped<ILoginApiClient, LoginApiClient>();
 builder.Services.AddScoped<IAboutApiClient, AboutApiClient>();
 builder.Services.AddScoped<IFileAboutApiClient, FileAboutApiClient>();
 builder.Services.AddScoped<IMenuItemApiClient, MenuItemApiClient>();
+builder.Services.AddScoped<IAboutDetailApiClient, AboutDetailApiClient>();
 
 var app = builder.Build();
 

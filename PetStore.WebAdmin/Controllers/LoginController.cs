@@ -52,7 +52,7 @@ namespace PetStore.WebAdmin.Controllers
             var userPrincipal = this.ValidateToken(result.Data);
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(8),
                 IsPersistent = false
             };
             HttpContext.Session.SetString(SystemConstants.AppSettings.Token, result.Data);

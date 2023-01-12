@@ -3,9 +3,9 @@ using PetStore.Model;
 
 namespace PetStore.WebAdmin.Controllers.Components.About
 {
-    public class EditMenuItemViewComponent : ViewComponent
+    public class EditAboutViewComponent : ViewComponent
     {
-        public EditMenuItemViewComponent()
+        public EditAboutViewComponent()
         {
         }
 

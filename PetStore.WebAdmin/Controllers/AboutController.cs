@@ -8,12 +8,15 @@ namespace PetStore.WebAdmin.Controllers
     {
         private readonly IAboutApiClient _aboutApiClient;
         private readonly IFileAboutApiClient _fileAboutApiClient;
+        private readonly IAboutDetailApiClient _aboutDetailApiClient;
 
         public AboutController(IAboutApiClient aboutApiClient,
-            IFileAboutApiClient fileAboutApiClient)
+            IFileAboutApiClient fileAboutApiClient,
+            IAboutDetailApiClient aboutDetailApiClient)
         {
             _aboutApiClient = aboutApiClient;
             _fileAboutApiClient = fileAboutApiClient;
+            _aboutDetailApiClient = aboutDetailApiClient;
         }
 
         public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
@@ -45,15 +48,19 @@ namespace PetStore.WebAdmin.Controllers
             request.Id = Guid.NewGuid();
             request.Image = request.Id.ToString();
             var result = await _fileAboutApiClient.CreateAbout(request);
-
-            if (result.Data > 0)
+            var aboutModel = new AboutDetailModel();
+            aboutModel.contenDetail = request.ContenDetail;
+            aboutModel.catagoryDetail = request.CatagoryDetail;
+            aboutModel.aboutId = (Guid)request.Id;
+            var aboutDetail = await _aboutDetailApiClient.Create(aboutModel);
+            if (result.Data > 0 || aboutDetail.Data > 0)
             {
                 var filemodels = new FilesModel();
                 filemodels.AboutId = (Guid)request.Id;
                 filemodels.filesadd = request.filesadd;
                 await _fileAboutApiClient.CreateImage(filemodels, (Guid)request.Id);
 
-                TempData["success"] = result.Message;
+                TempData["success"] = $"{result.Message} - {aboutDetail.Message}";
                 return RedirectToAction("Index");
             }
             return View(request);
@@ -72,6 +79,9 @@ namespace PetStore.WebAdmin.Controllers
                     Content = model.Content,
                     Title = model.Title,
                     Image = model.Image,
+                    AboutId = model.AboutId,
+                    CatagoryDetail = model.CatagoryDetail,
+                    ContenDetail = model.ContenDetail,
                     FilesModels = await _fileAboutApiClient.GetFilesAdmin(id)
                 };
                 return ViewComponent("EditAbout", updateRequest);
@@ -83,7 +93,12 @@ namespace PetStore.WebAdmin.Controllers
         public async Task<IActionResult> Edit(AboutModel request)
         {
             var result = await _fileAboutApiClient.EditAbout(request);
-            if (result.Data > 0)
+            var aboutModel = new AboutDetailModel();
+            aboutModel.contenDetail = request.ContenDetail;
+            aboutModel.catagoryDetail = request.CatagoryDetail;
+            aboutModel.aboutId = (Guid)request.Id;
+            var aboutDetail = await _aboutDetailApiClient.Edit(aboutModel);
+            if (result.Data > 0 || aboutDetail.Data > 0)
             {
                 var filemodels = new FilesModel();
                 filemodels.AboutId = (Guid)request.Id;
@@ -93,7 +108,7 @@ namespace PetStore.WebAdmin.Controllers
                 //update files
                 await _fileAboutApiClient.UpdateImage(filemodels, (Guid)request.Id);
 
-                TempData["info"] = result.Message;
+                TempData["info"] = $"{result.Message} - {aboutDetail.Message}";
                 return RedirectToAction("Index");
             }
             return View(request);
@@ -128,6 +143,8 @@ namespace PetStore.WebAdmin.Controllers
                     Content = model.Content,
                     Title = model.Title,
                     Image = model.Image,
+                    CatagoryDetail = model.CatagoryDetail,
+                    ContenDetail = model.ContenDetail,
                     FilesModels = await _fileAboutApiClient.GetFilesAdmin(id)
                 };
                 return ViewComponent("DetailAbout", detailRequest);

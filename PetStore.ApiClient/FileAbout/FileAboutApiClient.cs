@@ -58,6 +58,9 @@ namespace PetStore.ApiClient
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Title) ? "" : request.Title), "Title");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Image) ? "" : request.Image), "Image");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Content) ? "" : request.Content), "Content");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.AboutId.ToString()) ? "" : request.AboutId.ToString()), "AboutId");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.CatagoryDetail) ? "" : request.CatagoryDetail), "CatagoryDetail");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.ContenDetail) ? "" : request.ContenDetail), "ContenDetail");
 
             var sessions = _httpContextAccessor
                 .HttpContext
@@ -139,6 +142,9 @@ namespace PetStore.ApiClient
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Title) ? "" : request.Title), "Title");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Image) ? "" : request.Image), "Image");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Content) ? "" : request.Content), "Content");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.AboutId.ToString()) ? "" : request.AboutId.ToString()), "AboutId");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.CatagoryDetail) ? "" : request.CatagoryDetail), "CatagoryDetail");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.ContenDetail) ? "" : request.ContenDetail), "ContenDetail");
 
             var sessions = _httpContextAccessor
                 .HttpContext
