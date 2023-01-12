@@ -40,6 +40,8 @@ namespace PetStore.WebAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(MenuItemModel request)
         {
+            request.panID = Guid.NewGuid().ToString();
+            request.Id = Guid.NewGuid();
             var result = await _menuItemApiClient.Create(request);
             if (result.Data > 0)
             {
@@ -96,6 +98,26 @@ namespace PetStore.WebAdmin.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(Guid id)
+        {
+            var result = await _menuItemApiClient.GetById(id);
+            if (result.Data != null)
+            {
+                var model = result.Data;
+                var detailRequest = new MenuItemModel()
+                {
+                    Id = id,
+                    ghortOrder = model.ghortOrder,
+                    icon = model.icon,
+                    menuName = model.menuName,
+                    panID = model.panID
+                };
+                return ViewComponent("DetailMenuItem", detailRequest);
+            }
+            return RedirectToAction("Index", "MenuItem");
         }
     }
 }
