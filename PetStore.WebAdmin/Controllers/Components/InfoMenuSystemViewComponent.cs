@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetStore.ApiClient;
 using PetStore.Model;
 
 namespace PetStore.WebAdmin.Controllers.Components
 {
+    [Authorize]
     public class InfoMenuSystemViewComponent : ViewComponent
     {
         private readonly ILogger<InfoMenuSystemViewComponent> _logger;
