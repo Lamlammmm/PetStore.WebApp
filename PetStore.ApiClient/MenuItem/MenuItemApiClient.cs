@@ -49,5 +49,11 @@ namespace PetStore.ApiClient
             var data = await GetPagingAsync<ApiResult<Pagination<MenuItemModel>>>($"/api/MenuItem/Get-All-Paging?Keyword={request.Keyword}&PageIndex={request.PageIndex}&PageSize={request.PageSize}");
             return data;
         }
+
+        public async Task<ApiResult<IList<MenuItemModel>>> GetMenuItemSystem()
+        {
+            var data = await GetListAsync<MenuItemModel>($"/api/MenuItem/Get-All");
+            return data;
+        }
     }
 }

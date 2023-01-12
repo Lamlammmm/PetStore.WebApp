@@ -13,6 +13,8 @@ namespace PetStore.ApiClient
 
         Task<ApiResult<IList<MenuItemModel>>> GetAll();
 
+        Task<ApiResult<IList<MenuItemModel>>> GetMenuItemSystem();
+
         Task<ApiResult<int>> Create(MenuItemModel request);
 
         Task<ApiResult<int>> Edit(MenuItemModel request);
