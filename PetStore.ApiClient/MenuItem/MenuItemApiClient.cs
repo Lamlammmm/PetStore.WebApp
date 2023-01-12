@@ -61,5 +61,11 @@ namespace PetStore.ApiClient
             var data = await GetListAsync<MenuItemModel>($"/api/MenuItem/Get-menu-system");
             return data;
         }
+
+        public async Task<ApiResult<IList<MenuItemModel>>> GetMenuItemCategory()
+        {
+            var data = await GetListAsync<MenuItemModel>($"/api/MenuItem/Get-menu-category");
+            return data;
+        }
     }
 }

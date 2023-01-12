@@ -9,7 +9,7 @@
             <input type="hidden" asp-for="Id" />
             @foreach (var item in Model.FilesModels)
             {
-                <a><img src="@(Configuration["BaseAddress"]+item.Path+ "/"+@item.FileName+"")" alt="@item.FileName" /></a>
+                <a><img width="100" height="100" src="@(Configuration["BaseAddress"]+item.Path+ "/"+@item.FileName+"")" alt="@item.FileName" /></a>
             }
             <div class="modal-body">
                 <div class="form-group">
