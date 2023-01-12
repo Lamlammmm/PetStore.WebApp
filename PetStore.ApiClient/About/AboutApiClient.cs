@@ -19,7 +19,6 @@ namespace PetStore.ApiClient
             var data = await Delete($"/api/About/Delete-About?id={ids}");
             return data;
         }
-
         public async Task<ApiResult<AboutModel>> GetById(Guid id)
         {
             var data = await GetAsync<AboutModel>($"/api/About/get-by-id?id={id}");
