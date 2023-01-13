@@ -18,4 +18,29 @@
     <ProjectReference Include="..\PetStore.Model\PetStore.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Banner\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Banner\Components\CreateBanner\Default.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Banner\Components\CreateBanner\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Banner\Components\DetailBanner\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Banner\Components\EditBanner\Default.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Banner\Components\DetailBanner\Default.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Banner\Components\EditBanner\Default.cshtml" />
+  </ItemGroup>
+
 </Project>

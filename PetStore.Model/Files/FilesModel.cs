@@ -10,8 +10,8 @@ namespace PetStore.Model
         public decimal Size { get; set; }
         public string? Extension { get; set; }
         public string? MimeType { get; set; }
-        public Guid AboutId { get; set; }
-
+        public Guid? AboutId { get; set; }
+        public Guid? BannerId { get; set; }
         public IFormFile? filesadd { get; set; }
     }
 }

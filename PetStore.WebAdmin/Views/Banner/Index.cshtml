@@ -1,0 +1,162 @@
+﻿@model Pagination<BannerModel>
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    ViewData["Title"] = "Danh mục quảng cáo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Danh mục quảng cáo</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Danh mục quảng cáo</li>
+    </ol>
+    <div class="card mb-12">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <a class="btn btn-success" onclick="Create()"><i class="fas fa-check"></i> Tạo mới</a>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <form asp-action="Index" method="get">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input type="text" value="@ViewBag.Keyword" name="keyword" class="form-control" />
+                            </div>
+                            <div class="cold-md-3">
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                                <button type="button" onclick="window.location.href='/Banner'" class="btn btn-dark">Tải lại</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <input type="hidden" id="success" value="@TempData["success"]" />
+            <input type="hidden" id="info" value="@TempData["info"]" />
+            <input type="hidden" id="info" value="@TempData["warning"]" />
+            <input type="hidden" id="error" value="@TempData["error"]" />
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 17%;">
+                                Tiêu đề
+                            </th>
+                            <th style="width: 17%;">
+                                Nội dung
+                            </th>
+                            <th style="width: 17%;">
+                                Loại bài viết
+                            </th>
+                            <th style="width: 17%;">
+                                Loại quảng cáo
+                            </th>
+                            <th>
+                                Hình ảnh
+                            </th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TypeBannerName)
+                                </td>
+                                <td>
+                                    @if (item.Image != null)
+                                    {
+                                        if (item.Image.Contains("https"))
+                                        {
+                                            <img src="@(Configuration["BaseAddress"]+"/api/FileBanner/image/"+ @item.Image)" asp-append-version="true" width="80" height="80" />
+                                        }
+                                        else
+                                        {
+                                            <img src="@(Configuration["BaseAddress"]+"/api/FileBanner/image/"+ @item.Image)" asp-append-version="true" width="80" height="80" />
+
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <button onclick="Edit('@item.Id')" class="btn btn-primary"><i class="fas fa-exclamation-triangle"></i> Sửa</button>
+                                    <button onclick="Detail('@item.Id')" class="btn" style="background: yellow;"><i class="fas fa-info-circle"></i> Chi tiết</button>
+                                    <button onclick="Delete('@item.Id')" class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @await Component.InvokeAsync("Pager", Model)
+        </div>
+    </div>
+</div>
+
+<div id="contactDetails"></div>
+
+@section Scripts{
+    <script>
+
+        function Create() {
+            $.get("/Banner/Create", function (data) {
+                $("#contactDetails").html(data);
+                $("#contactDetails").dialog("open");
+                $(".k-overlay").removeClass("d-none");
+            });
+        }
+
+        function Edit(id) {
+            $.get("/Banner/Edit", { id: id }, function (data) {
+                $("#contactDetails").html(data);
+                $("#contactDetails").dialog("open");
+            });
+        }
+
+        function Detail(id) {
+            $.get("/Banner/Detail", { id: id }, function (data) {
+                $("#contactDetails").html(data);
+                $("#contactDetails").dialog("open");
+            });
+        }
+
+        function Delete(id) {
+            if (confirm("Bạn có chắc chắn xóa không?")) {
+                $.post("/Banner/Delete", { id: id }, function (data) {
+                    if (data) {
+                        if (confirm("Xóa thành công"))
+                            window.location.assign('/Banner')
+                    } else {
+                        alert("Quá trình thực hiện không thành công. Hãy thử lại");
+                    }
+                });
+            }
+        }
+
+        $(function () {
+            $("#contactDetails").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 500,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+        });
+
+    </script>
+}
