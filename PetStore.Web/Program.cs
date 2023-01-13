@@ -28,6 +28,7 @@ if (environment == Environments.Development)
 }
 
 builder.Services.AddScoped<IUnAboutApiClient, UnAboutApiClient>();
+builder.Services.AddScoped<IUnBannerApiClient, UnBannerApiClient>();
 
 var app = builder.Build();
 
