@@ -1,0 +1,25 @@
+﻿@model ServicePetModel
+
+<div>
+    <h4>Chi tiết</h4>
+    <hr />
+    <form asp-controller="ServicePet" asp-action="Detail" method="post">
+        <div class="form-body">
+            <input type="hidden" asp-for="Id" />
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="title" class="control-label"></label>
+                    <input asp-for="title" class="form-control" readonly="@(true)" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="icon" class="control-label"></label>
+                    <input asp-for="icon" class="form-control" readonly="@(true)" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="content" class="control-label"></label>
+                    <input asp-for="content" class="form-control" readonly="@(true)" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
