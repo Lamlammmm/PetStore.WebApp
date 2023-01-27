@@ -1,0 +1,21 @@
+﻿@model VoucherCodeModel
+
+<div>
+    <h4>Thêm mới</h4>
+    <hr />
+    <form asp-controller="VoucherCode" asp-action="Create" method="post">
+        <div class="form-body">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="dieukien" class="control-label"></label>
+                    <input asp-for="dieukien" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn btn-success btn-sm">
+                    Lưu
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
