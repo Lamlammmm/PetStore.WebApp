@@ -77,6 +77,7 @@ namespace PetStore.WebAdmin.Controllers
                     PriceDetail = model.PriceDetail,
                     Qualyti = model.Qualyti,
                     VoteId = model.VoteId,
+                    AvailableVote = model.AvailableVote,
                     FilesModels = await _fileProductApiClient.GetFilesAdmin(id)
                 };
                 return ViewComponent("EditProduct", updateRequest);
@@ -139,6 +140,7 @@ namespace PetStore.WebAdmin.Controllers
                     ProductId = model.ProductId,
                     Qualyti = model.Qualyti,
                     VoteId = model.VoteId,
+                    AvailableVote = model.AvailableVote,
                     FilesModels = await _fileProductApiClient.GetFilesAdmin(id)
                 };
                 return ViewComponent("DetailProduct", detailRequest);

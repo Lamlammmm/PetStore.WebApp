@@ -59,6 +59,13 @@ namespace PetStore.ApiClient
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Image) ? "" : request.Image), "Image");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Content) ? "" : request.Content), "Content");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.ProductId.ToString()) ? "" : request.ProductId.ToString()), "ProductId");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Name) ? "" : request.Name), "Name");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Price.ToString()) ? "" : request.Price.ToString()), "Price");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.ImageDetail) ? "" : request.ImageDetail), "ImageDetail");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.VoteId.ToString()) ? "" : request.VoteId.ToString()), "VoteId");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.PriceDetail.ToString()) ? "" : request.PriceDetail.ToString()), "PriceDetail");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Qualyti.ToString()) ? "" : request.Qualyti.ToString()), "Qualyti");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.ProductId.ToString()) ? "" : request.ProductId.ToString()), "ProductId");
 
             var sessions = _httpContextAccessor
                 .HttpContext
@@ -139,6 +146,13 @@ namespace PetStore.ApiClient
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Id.ToString()) ? "" : request.Id.ToString()), "Id");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Image) ? "" : request.Image), "Image");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Content) ? "" : request.Content), "Content");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.ProductId.ToString()) ? "" : request.ProductId.ToString()), "ProductId");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Name) ? "" : request.Name), "Name");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Price.ToString()) ? "" : request.Price.ToString()), "Price");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.ImageDetail) ? "" : request.ImageDetail), "ImageDetail");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.VoteId.ToString()) ? "" : request.VoteId.ToString()), "VoteId");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.PriceDetail.ToString()) ? "" : request.PriceDetail.ToString()), "PriceDetail");
+            requestContent.Add(new StringContent(string.IsNullOrEmpty(request.Qualyti.ToString()) ? "" : request.Qualyti.ToString()), "Qualyti");
             requestContent.Add(new StringContent(string.IsNullOrEmpty(request.ProductId.ToString()) ? "" : request.ProductId.ToString()), "ProductId");
 
             var sessions = _httpContextAccessor

@@ -10,5 +10,7 @@ namespace PetStore.ApiClient
         Task<ApiResult<ProductModel>> GetById(Guid id);
 
         Task<ApiResult<int>> DeletesAsync(Guid ids);
+
+        Task<ApiResult<IList<VoucherCodeModel>>> GetAll();
     }
 }

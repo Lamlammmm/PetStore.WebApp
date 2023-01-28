@@ -31,5 +31,11 @@ namespace PetStore.ApiClient
             var data = await GetPagingAsync<ApiResult<Pagination<ProductModel>>>($"/api/Product/Get-All-Paging?Keyword={request.Keyword}&PageIndex={request.PageIndex}&PageSize={request.PageSize}");
             return data;
         }
+
+        public async Task<ApiResult<IList<VoucherCodeModel>>> GetAll()
+        {
+            var data = await GetListAsync<VoucherCodeModel>($"/api/VoucherCode/Get-List-VoucherCode");
+            return data;
+        }
     }
 }

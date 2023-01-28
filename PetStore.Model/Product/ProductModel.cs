@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PetStore.Common.ShareModel;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,11 @@ namespace PetStore.Model
 
         [Display(Name = "Voucher")]
         public Guid? VoteId { get; set; }
+
+        [Display(Name = "Voucher")]
+        public string? VoteName { get; set; }
+
+        public IList<SelectListItem>? AvailableVote { get; set; }
 
         [Display(Name = "Giá khuyến mãi")]
         public int? PriceDetail { get; set; }
