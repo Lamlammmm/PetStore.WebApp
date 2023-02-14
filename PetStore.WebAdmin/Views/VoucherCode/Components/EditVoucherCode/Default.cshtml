@@ -1,0 +1,28 @@
+﻿@model VoucherCodeModel
+
+<div>
+    <h4>Sửa dữ liệu</h4>
+    <hr />
+    <form asp-controller="VoucherCode" asp-action="Edit" method="post">
+        <div class="form-body">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="code" />
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="code" class="control-label"></label>
+                    <input asp-for="code" class="form-control" readonly="@(true)" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="dieukien" class="control-label"></label>
+                    <input asp-for="dieukien" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="submit" class="btn btn-success btn-sm">
+                    Lưu
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
