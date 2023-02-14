@@ -6,5 +6,6 @@ namespace PetStore.WebApiClient
     public interface IUnBannerApiClient
     {
         Task<ApiResult<IList<BannerModel>>> GetBannerHome();
+        Task<ApiResult<IList<BannerModel>>> GetBannerOffer();
     }
 }

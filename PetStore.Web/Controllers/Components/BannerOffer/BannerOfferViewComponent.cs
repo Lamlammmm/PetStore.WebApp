@@ -2,15 +2,14 @@
 using PetStore.Model;
 using PetStore.WebApiClient;
 
-namespace PetStore.Web.Controllers.Components.BannerHome
+namespace PetStore.Web.Controllers.Components.BannerOffer
 {
-    public class BannerHomeViewComponent : ViewComponent
+    public class BannerOfferViewComponent : ViewComponent
     {
-        private readonly ILogger<BannerHomeViewComponent> _logger;
+        private readonly ILogger<BannerOfferViewComponent> _logger;
         private readonly IUnBannerApiClient _unBannerApiClient;
 
-        public BannerHomeViewComponent(ILogger<BannerHomeViewComponent> logger,
-            IUnBannerApiClient unBannerApiClient)
+        public BannerOfferViewComponent(ILogger<BannerOfferViewComponent> logger, IUnBannerApiClient unBannerApiClient)
         {
             _logger = logger;
             _unBannerApiClient = unBannerApiClient;
@@ -18,11 +17,10 @@ namespace PetStore.Web.Controllers.Components.BannerHome
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            _logger.LogInformation("Get SetCookie ");
-            var about = await _unBannerApiClient.GetBannerHome();
+            _logger.LogInformation("Get SetCookie");
+            var about = await _unBannerApiClient.GetBannerOffer();
             var model = new List<BannerModel>();
             var data = about;
-
             if (data.Data?.Count > 0)
             {
                 foreach (var m in data.Data)
@@ -31,14 +29,14 @@ namespace PetStore.Web.Controllers.Components.BannerHome
                     {
                         Content = m.Content,
                         Id = m.Id,
-                        Image = m.Image,
                         Title = m.Title,
-                        TypeBanner = m.TypeBanner,
+                        Image = m.Image,
+                        TypeBanner = m.TypeBanner
                     };
+
                     model.Add(item);
                 }
             }
-
             _logger.LogInformation("End get SetCookie");
             return View(model);
         }

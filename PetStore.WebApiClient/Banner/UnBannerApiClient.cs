@@ -19,5 +19,11 @@ namespace PetStore.WebApiClient
             var data = await GetListAsync<BannerModel>($"/api/Banner/get-list");
             return data;
         }
+
+        public async Task<ApiResult<IList<BannerModel>>> GetBannerOffer()
+        {
+            var data = await GetListAsync<BannerModel>($"/api/Banner/get-Offer");
+            return data;
+        }
     }
 }
